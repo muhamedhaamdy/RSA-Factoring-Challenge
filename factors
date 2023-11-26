@@ -1,0 +1,31 @@
+#!/usr/bin/python3
+import sys
+import time as ti
+import math as m
+def factorize(num):
+    """ factorize the number to its two factors """
+    for i in range(2, int(m.sqrt(num)) + 1):
+        if not num % i:
+            return (int(i), int(num/i))
+    return (None)
+if __name__ == "__main__":
+    """ the main function """
+    if len(sys.argv) != 2:
+        print("wrong args input")
+        exit()
+    try:
+        file = open(sys.argv[1], 'r')
+        lines = file.readlines()
+    except FileNotFoundError:
+        print("error file not found")
+        exit()
+    st_time = ti.time()
+    
+    for line in lines:
+        num = int(line.strip())
+        factors = factorize(num)
+        if factors:
+            print("{}={}*{}".format(num, factors[1], factors[0]))
+        if ti.time() - st_time > 5:
+            print("time limit exeeded")
+            exit()
